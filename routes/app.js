@@ -1,5 +1,5 @@
 var path = require('path');
-const apiController = require(path.resolve('controllers/api'));
+// const apiController = require(path.resolve('controllers/api'));
 const passportConfig = require(path.resolve('config/passport'));
 
 const passport = require('passport');
@@ -15,15 +15,14 @@ var AppModule = function AppModule(app) {
     // API Routes
     app.get('/getUser', require('./getUser'));
 
-    // 
-    app.get('/api', apiController.getApi);
-    app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
-    app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
-    app.get('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTwitter);
-    app.get('/api/linkedin', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getLinkedin);
-    app.get('/api/instagram', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getInstagram);
+    // // Social Media API Routes
+    // app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
+    // app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
+    // app.get('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTwitter);
+    // app.get('/api/linkedin', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getLinkedin);
+    // app.get('/api/instagram', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getInstagram);
 
-    //
+    // Social Media OAuth Routes
     app.get('/auth/instagram', passport.authenticate('instagram'));
     app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/login' }), (req, res) => {
       res.redirect(req.session.returnTo || '/');
