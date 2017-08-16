@@ -1,6 +1,6 @@
-var path = require('path');
-// const apiController = require(path.resolve('controllers/api'));
+const path = require('path');
 const passportConfig = require(path.resolve('config/passport'));
+const userRoutes = require('./user');
 
 const passport = require('passport');
 
@@ -13,14 +13,9 @@ var AppModule = function AppModule(app) {
     app.get('/home/*', require('./getIndex'))
 
     // API Routes
-    app.get('/getUser', require('./getUser'));
-
-    // // Social Media API Routes
-    // app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
-    // app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
-    // app.get('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTwitter);
-    // app.get('/api/linkedin', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getLinkedin);
-    // app.get('/api/instagram', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getInstagram);
+    app.get('/api/getUser', require('./getUser'));
+    app.post('/api/signup', userRoutes.postSignup);
+    app.post('/api/login', userRoutes.postLogin);
 
     // Social Media OAuth Routes
     app.get('/auth/instagram', passport.authenticate('instagram'));
