@@ -22,13 +22,6 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') });
 /** Load environment variables from .env file, where API keys and passwords are configured. */
 dotenv.load({ path: '.env.example' });
 
-/** Controllers (route handlers). */
-// const homeController = require('./controllers/home');
-// const userController = require('./controllers/user');
-// const contactController = require('./controllers/contact');
-
-
-
 /** Create Express server. */
 const app = express();
 
@@ -40,6 +33,15 @@ mongoose.connection.on('error', (err) => {
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
 });
+
+/** Remove CORS in dev. */
+if (process.env.ENV === 'DEV') {
+  const cors = require('cors');
+  app.use(cors({origin:true,credentials: true}));
+} else {
+  app.use(lusca.xframe('SAMEORIGIN'));
+  app.use(lusca.xssProtection(true));
+}
 
 /** Express configuration. */
 app.set('port', process.env.PORT || 3000);
@@ -68,15 +70,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
+
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
