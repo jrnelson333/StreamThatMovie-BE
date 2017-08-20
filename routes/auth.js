@@ -21,13 +21,11 @@ exports.postLogin = (req, res, next) => {
 
   passport.authenticate('local', (err, user, info) => {
     if (err || !user) { 
-      return res.status(400).send({ errors: [{ msg: 'Sorry, the username and password combination are not valid'}] });
+      return res.status(400).send({ errors: [{ msg: 'Sorry, the username and password combination is not valid'}] });
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
       return res.status(200).send({ user: { id: user._id, email: user.email } });
-      // req.flash('success', { msg: 'Success! You are logged in.' });
-      // res.redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
 };
@@ -38,7 +36,7 @@ exports.postLogin = (req, res, next) => {
  */
 exports.logout = (req, res) => {
   req.logout();
-  // res.redirect('/');
+  res.status(200).send();
 };
 
 /**
@@ -78,16 +76,6 @@ exports.postSignup = (req, res, next) => {
       });
     }
 
-  });
-};
-
-/**
- * GET /account
- * Profile page.
- */
-exports.getAccount = (req, res) => {
-  res.render('account/profile', {
-    title: 'Account Management'
   });
 };
 
@@ -161,8 +149,9 @@ exports.postDeleteAccount = (req, res, next) => {
   User.remove({ _id: req.user.id }, (err) => {
     if (err) { return next(err); }
     req.logout();
-    req.flash('info', { msg: 'Your account has been deleted.' });
-    res.redirect('/');
+    // req.flash('info', { msg: 'Your account has been deleted.' });
+    // res.redirect('/');
+    res.status(200).send();
   });
 };
 

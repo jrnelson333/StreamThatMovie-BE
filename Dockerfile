@@ -2,7 +2,7 @@ FROM node:6-slim
 
 COPY . /starter
 COPY package.json /starter/package.json
-COPY .env.example /starter/.env.example
+COPY .env /starter/.env
 
 WORKDIR /starter
 
@@ -13,6 +13,7 @@ RUN yarn install --production
 RUN npm install --global nodemon
 
 # CMD ["npm","start"]
-CMD ["nodemon", "app.js"]
+# CMD ["nodemon", "app.js"]
+CMD npm install && nodemon app.js
 
 EXPOSE 8888

@@ -1,6 +1,6 @@
 const path = require('path');
 const passportConfig = require(path.resolve('config/passport'));
-const userRoutes = require('./user');
+const authRoutes = require('./auth');
 
 const passport = require('passport');
 
@@ -13,9 +13,23 @@ var AppModule = function AppModule(app) {
     app.get('/home/*', require('./getIndex'))
 
     // API Routes
+    app.post('/api/auth/signup', authRoutes.postSignup);
+    app.post('/api/auth/login', authRoutes.postLogin);
+    app.get('/api/auth/logout', authRoutes.logout);
+    app.get('/api/auth/delete', authRoutes.postDeleteAccount);
+
     app.get('/api/getUser', require('./getUser'));
-    app.post('/api/signup', userRoutes.postSignup);
-    app.post('/api/login', userRoutes.postLogin);
+    app.post('/api/movie/rating/:id', require('./rating/POST'));
+    app.get('/api/movie/rating/:id', require('./rating/GET'));
+    app.get('/api/movie/rating/avg/:id', require('./rating/GETaverage'));
+    app.post('/api/movie/favorite/:id', require('./favorite/POST'));
+    app.get('/api/movie/favorite/:id', require('./favorite/GET'));
+    app.get('/api/movie/favorite', require('./favorite/GET'));
+    app.delete('/api/movie/favorite/:id', require('./favorite/DELETE'));
+    app.get('/api/user/favoriteList', require('./favorite-list/GET'));
+    
+    // app.get('/api/movie/source/', require('./source/GET'))
+    
 
     // Social Media OAuth Routes
     app.get('/auth/instagram', passport.authenticate('instagram'));
