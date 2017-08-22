@@ -5,7 +5,7 @@ const favoriteSchema = new mongoose.Schema({
   userId: { type: String, required: true },
 });
 
-favoriteSchema.index({movieId: 1}, {unique: true});
+favoriteSchema.index({movieId: 1, userId: 1}, {unique: true});
 
 const Favorite = mongoose.model('Favorite', favoriteSchema);
 
