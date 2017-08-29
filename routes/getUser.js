@@ -4,7 +4,7 @@ var getUser = function getUser(req, res) {
         var user = {id: req.user._id, email: req.user.email};
         return res.status(200).send(user);
     } else {
-        return res.status(403).send();
+        return res.status(401).send();
     }
 
 }

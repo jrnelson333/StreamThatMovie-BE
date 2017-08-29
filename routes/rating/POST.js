@@ -9,7 +9,7 @@ var rateMovie = function rateMovie(req, res, next) {
     }
 
     const query = {
-        movieId: req.params.id,
+        id: req.params.id,
         userId: req.user._id
     }
 

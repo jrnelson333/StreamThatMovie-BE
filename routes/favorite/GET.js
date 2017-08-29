@@ -5,7 +5,7 @@ var getFavorite = function getFavorite(req, res, next) {
     if (!req.user) { return res.status(403).send(); }
 
     let query = {
-        movieId: req.params.id,
+        id: req.params.id,
         userId: req.user._id
     }
 

@@ -3,7 +3,7 @@ const Rating = require('../../models/Rating');
 var getRating = function getRating(req, res, next) {
 
     const query = {
-        movieId: parseInt(req.params.id)
+        id: parseInt(req.params.id)
     }
 
     const callback = function callback(err, obj) {
@@ -19,7 +19,7 @@ var getRating = function getRating(req, res, next) {
     Rating.aggregate([
         { $match: query },
         { $group: { 
-                _id: "$movieId",
+                _id: "$id",
                 rating: { $avg: "$rating" }
             }
         }

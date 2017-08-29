@@ -1,16 +1,22 @@
-// const Rating = require('../../models/Rating');
-const sourceUtil = require('../util');
+const Source = require('../../models/Source');
 
 var getSource = function getSource(req, res, next) {
 
-    // if (!req.user) { return res.status(403).send(); }
-    sourceUtil.getNetflix(req.query).then(function (resp) {
-        if (!resp) {
-            return res.status(404).send();
+    const query = {
+        id: req.params.id,
+    }
+
+    const callback = function callback(err, obj) {
+        if (err) { 
+            return next(err);
+        } else if (obj) {
+            res.status(200).send(obj);
         } else {
-            return res.status(200).send(resp);
+            res.status(404).send();
         }
-    })
+    }
+
+    Source.findOne(query, callback)
 
 }
 

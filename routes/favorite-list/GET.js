@@ -1,5 +1,5 @@
 const Favorite = require('../../models/Favorite');
-const util = require('../util');
+const returnMovieDetails = require('../common').returnMovieDetails
 
 var getFavoriteList = function getFavoriteList(req, res, next) {
 
@@ -11,24 +11,15 @@ var getFavoriteList = function getFavoriteList(req, res, next) {
         if (err) {
             return next(err);
         } else if (obj && obj.length) {
-            let promises = [];
-            obj.forEach(function (movie, i) {
-                promises.push(util.getMovieInfo(movie.movieId))
-            })
-            Promise.all(promises).then(
-                function (resp) {
-                    res.status(200).send(resp);
-                },
-                function (err) {
-                    res.send(500).send({ message: 'Error retreiving movie data' })
-                })
+            let body = { results: obj }
+            return returnMovieDetails(body, req, res)
 
         } else {
             res.status(404).send();
         }
     }
 
-    Favorite.find(query, callback)
+    Favorite.find(query, callback).lean()
 
 }
 
