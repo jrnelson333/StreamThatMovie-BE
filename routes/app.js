@@ -22,14 +22,19 @@ var AppModule = function AppModule(app) {
     app.post('/api/movie/rating/:id', require('./rating/POST'));
     app.get('/api/movie/rating/:id', require('./rating/GET'));
     app.get('/api/movie/rating/avg/:id', require('./rating/GETaverage'));
-    app.post('/api/movie/favorite/:id', require('./favorite/POST'));
+    app.post('/api/movie/favorite', require('./favorite/POST'));
     app.get('/api/movie/favorite/:id', require('./favorite/GET'));
     app.get('/api/movie/favorite', require('./favorite/GET'));
     app.delete('/api/movie/favorite/:id', require('./favorite/DELETE'));
     app.get('/api/user/favoriteList', require('./favorite-list/GET'));
     
-    // app.get('/api/movie/source/', require('./source/GET'))
-    
+    app.get('/api/movie/source/:id', require('./source/GET'))
+    app.get('/api/category/netflix', require('./source/GETnetflix'))
+
+    app.get('/api/tmdb/category/:category', require('./tmdb/GETcategory'))
+    app.get('/api/tmdb/search/:query', require('./tmdb/GETsearch'))
+    app.get('/api/tmdb/similar/:id', require('./tmdb/GETsimilar'))    
+
 
     // Social Media OAuth Routes
     app.get('/auth/instagram', passport.authenticate('instagram'));
