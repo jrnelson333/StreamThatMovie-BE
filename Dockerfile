@@ -10,7 +10,7 @@ ENV NODE_ENV production
 RUN yarn install --production
 
 # CMD npm install && nodemon app.js
-CMD npm install forever -g
-CMD npm install && forever start app.js
+RUN npm install forever -g
+CMD forever app.js
 
 EXPOSE 8888
