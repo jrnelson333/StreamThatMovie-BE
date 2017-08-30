@@ -1,6 +1,6 @@
 const schedule = require('node-schedule');
-const updateNetflix = require('./util').updateNetflix
+const queryNetflix = require('./util').queryNetflix
 
 var scheduleUpdateNetflix = schedule.scheduleJob('0 23 * * *', function () {
-    updateNetflix()
+    queryNetflix()
 });
