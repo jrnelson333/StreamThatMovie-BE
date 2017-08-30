@@ -9,11 +9,7 @@ WORKDIR /starter
 ENV NODE_ENV production
 RUN yarn install --production
 
-# use nodemon for development
-RUN npm install --global nodemon
-
-# CMD ["npm","start"]
-# CMD ["nodemon", "app.js"]
-CMD npm install && nodemon app.js
+# CMD npm install && nodemon app.js
+CMD npm install && forver start app.js
 
 EXPOSE 8888
