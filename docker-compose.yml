@@ -16,5 +16,5 @@ services:
      - mongo 
     volumes:
      - .:/starter
-     - /starter/node_modules
+    #  - /starter/node_modules
      
