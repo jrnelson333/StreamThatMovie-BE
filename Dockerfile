@@ -12,6 +12,6 @@ RUN yarn install --production
 
 # CMD npm install && nodemon app.js
 RUN npm install forever -g
-CMD forever app.js
+CMD forever ./app.js
 
 EXPOSE 8888
