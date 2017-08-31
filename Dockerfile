@@ -1,10 +1,10 @@
 FROM node:6-slim
 
-COPY . /
-# COPY package.json /package.json
+COPY . /starter
+# COPY package.json /starter/package.json
 # COPY .env /starter/.env
 
-WORKDIR /
+WORKDIR /starter
 
 ENV NODE_ENV production
 RUN ls
