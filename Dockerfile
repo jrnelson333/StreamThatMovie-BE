@@ -7,6 +7,7 @@ COPY package.json /starter/package.json
 WORKDIR /starter
 
 ENV NODE_ENV production
+RUN ls
 RUN yarn install --production
 
 # CMD npm install && nodemon app.js
